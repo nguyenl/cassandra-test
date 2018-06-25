@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Eagle Flights</title>
+  </head>
+  <style>
+    h1 {
+      color: blue;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    th  {
+      font-weight: bold;
+    }
+    
+    table, th, td {
+      border: 1px solid black;
+      padding-right: 50px;
+    }
+    
+  </style>
+  
+  <body>
+
+    <h1>Flights</h1>
+
+    <table>
+      <tr>
+        <th>ACID</th>
+        <th>STATE</th>
+        <th>UPDATE TIME</th>
+        <th>UUID</th>
+      </tr>
+
+      {% for flight in flights %}
+      <tr>      
+        <td>{{ flight.acid }}</td>
+        <td>{{ flight.state }}</td>
+        <td>{{ flight.update_time }}</td>
+        <td>{{ flight.id }}</td>
+      </tr>        
+      {% endfor %}
+    </table>
+
+    <h1>Submit</h1>
+    <form action="/submit" method="post">
+      ACID:<br>
+      <input type="text" name="acid">
+      <br>
+      STATE:<br>
+      <input type="text" name="state">
+      <br><br>
+      <input type="submit" value="Submit">
+    </form> 
+    
+  </body>
+</html>
