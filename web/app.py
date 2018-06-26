@@ -7,8 +7,22 @@ import model
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
+    return render_template('index.html')
+
+
+@app.route('/init')
+def init():
+    """
+    Initializes the cassandra database tables.
+    """
+    model.init_cassandra()
+    return redirect(url_for('flights'))    
+    
+
+@app.route('/flights', methods=['GET', 'POST'])
+def flights():
     flights = model.get_flights()
     fic = model.get_fic()
     return render_template('flights.html', fic=fic, flights=flights)
@@ -21,4 +35,6 @@ def submit():
         state = request.form['state']
         model.save_flight(acid, state)
 
-    return redirect(url_for('index'))
+    return redirect(url_for('flights'))
+
+
