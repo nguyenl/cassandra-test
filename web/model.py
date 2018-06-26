@@ -42,7 +42,7 @@ def init_cassandra():
     session = _get_session(None)
     keyspace_query = """
     CREATE KEYSPACE IF NOT EXISTS eagle 
-    WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 2 };
+    WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 3 };
     """
 
     session.execute(keyspace_query)

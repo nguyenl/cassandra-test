@@ -1,10 +1,10 @@
 version: '3'
-services: 
+services:
   web-eg:
     build: .
     ports:
      - "5000:5000"
-    volumes:       
+    volumes:
      - ./web/:/opt/web/
     environment:
      - FIC=CYEG
@@ -13,14 +13,27 @@ services:
     build: .
     ports:
      - "5001:5000"
-    volumes:       
+    volumes:
      - ./web/:/opt/web/
     environment:
      - FIC=CYVR
      - CASSANDRA_SERVER=cass-vr
+  web-qb:
+    build: .
+    ports:
+     - "5002:5000"
+    volumes:
+     - ./web/:/opt/web/
+    environment:
+     - FIC=CYQB
+     - CASSANDRA_SERVER=cass-qb
   cass-eg:
     image: cassandra:3
+  cass-qb:
+    image: cassandra:3
+    environment:
+     - CASSANDRA_SEEDS=cass-eg
   cass-vr:
     image: cassandra:3
-    environment:    
-     - CASSANDRA_SEEDS=cass-eg    
+    environment:
+     - CASSANDRA_SEEDS=cass-eg
