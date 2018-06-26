@@ -7,11 +7,12 @@ import model
 app = Flask(__name__)
 
 
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     flights = model.get_flights()
-    return render_template('flights.html', flights=flights)
+    fic = model.get_fic()
+    return render_template('flights.html', fic=fic, flights=flights)
+
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -19,5 +20,5 @@ def submit():
         acid = request.form['acid']
         state = request.form['state']
         model.save_flight(acid, state)
-    
+
     return redirect(url_for('index'))
